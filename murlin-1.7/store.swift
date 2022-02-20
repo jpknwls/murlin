@@ -88,7 +88,7 @@ where State: Equatable {
         State,
         Environment,
         Action
-    ) -> Update<State, Action>
+    ) -> Update<State, Action>?
     /// Environment, which typically holds references to outside information,
     /// such as API methods.
     ///
@@ -114,7 +114,7 @@ where State: Equatable {
             State,
             Environment,
             Action
-        ) -> Update<State, Action>,
+        ) -> Update<State, Action>?,
         state: State,
         environment: Environment,
         logger: Logger,
@@ -183,22 +183,27 @@ where State: Equatable {
             logger.debug("Action: \(String(reflecting: action))")
         }
         // Generate next state and effect
-        let change = update(self.state, self.environment, action)
-        if debug {
-            logger.debug("State: \(String(reflecting: change.state))")
+        if let change = update(self.state, self.environment, action) {
+            if debug {
+                logger.debug("State: \(String(reflecting: change.state))")
+            }
+            // Set `state` if changed.
+            //
+            // Mutating state (a `@Published` property) will fire `objectWillChange`
+            // and cause any views that subscribe to store to re-evaluate
+            // their body property.
+            //
+            // If no change has occurred, we avoid setting the property
+            // so that body does not need to be reevaluated.
+            if self.state != change.state {
+                    self.state = change.state
+            }
+            // Run effect
+            self.subscribe(fx: change.fx)
+        } else {
+            if debug {
+                logger.debug("Aborted: \(String(reflecting: action))")
+            }
         }
-        // Set `state` if changed.
-        //
-        // Mutating state (a `@Published` property) will fire `objectWillChange`
-        // and cause any views that subscribe to store to re-evaluate
-        // their body property.
-        //
-        // If no change has occurred, we avoid setting the property
-        // so that body does not need to be reevaluated.
-        if self.state != change.state {
-            self.state = change.state
-        }
-        // Run effect
-        self.subscribe(fx: change.fx)
     }
 }

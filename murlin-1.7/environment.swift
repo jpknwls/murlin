@@ -7,10 +7,12 @@
 
 import Foundation
 import Combine
+import UIKit
+import RealmSwift
 
 // Services like API methods go here
 struct AppEnvironment {
-    func startOrientationListening() -> AnyPublisher<AppAction, Never> {
+    func startOrientationListening() -> Fx<AppAction>{
         NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)
                     .compactMap { ($0.object as? UIDevice)?.orientation }
                     .compactMap { deviceOrientation -> Orientation? in
@@ -26,9 +28,41 @@ struct AppEnvironment {
                     }.eraseToAnyPublisher()
     }
     
-    func startKeyboardListening() -> AnyPublisher<AppAction, Never> {
+    func startKeyboardListening() -> Fx<AppAction> {
         NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)
                     .map {_ in AppAction.hideKeyboard }
                     .eraseToAnyPublisher()
     }
+    
+    func startKeyboardChangeListening() -> Fx<AppAction> {
+          NotificationCenter.default.publisher(for: UIResponder.keyboardDidChangeFrameNotification)
+                    .map { notification in
+                        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return AppAction.hideKeyboard }
+                        let newRect = keyboardValue.cgRectValue
+                        return AppAction.setKeyboardHeight(newRect)
+                    }.eraseToAnyPublisher()
+    }
+    
+    /*
+        updateSearchText(
+            -> send this value to our environment
+            -> this should trigger an update
+            
+             AnyPublisher<String, Never>
+             -> 
+             
+             
+    
+     */
+     
+    let repository = Repository()
+    
+    
+//    func queryPublisher(for text: String, sort: SortOrder) -> Fx<AppAction> {
+//        if let results = queryDatabase(text: text, sort: sort) {
+//            return Just(.updateQuery(results)).eraseToAnyPublisher()
+//        } else {
+//            return Just(.empty).eraseToAnyPublisher()
+//        }
+//    }
 }

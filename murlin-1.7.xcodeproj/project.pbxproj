@@ -32,6 +32,13 @@
 		18B0C19527C1A175007EEAD5 /* store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C19427C1A175007EEAD5 /* store.swift */; };
 		18B0C19727C1A21A007EEAD5 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C19627C1A21A007EEAD5 /* AppModel.swift */; };
 		18B0C19927C1A816007EEAD5 /* environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C19827C1A816007EEAD5 /* environment.swift */; };
+		18B0C19B27C1AA5B007EEAD5 /* NavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C19A27C1AA5B007EEAD5 /* NavigationView.swift */; };
+		18B0C19D27C1B762007EEAD5 /* NodesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C19C27C1B762007EEAD5 /* NodesView.swift */; };
+		18B0C19F27C1B84C007EEAD5 /* NodeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C19E27C1B84C007EEAD5 /* NodeCard.swift */; };
+		18B0C1A127C1C905007EEAD5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C1A027C1C905007EEAD5 /* SettingsView.swift */; };
+		18B0C1A327C1DF63007EEAD5 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C1A227C1DF63007EEAD5 /* String+.swift */; };
+		18B0C1A527C20259007EEAD5 /* DatabaseTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C1A427C20259007EEAD5 /* DatabaseTypes.swift */; };
+		18B0C1A727C21569007EEAD5 /* TextEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C1A627C21569007EEAD5 /* TextEditView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +66,13 @@
 		18B0C19427C1A175007EEAD5 /* store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = store.swift; sourceTree = "<group>"; };
 		18B0C19627C1A21A007EEAD5 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
 		18B0C19827C1A816007EEAD5 /* environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = environment.swift; sourceTree = "<group>"; };
+		18B0C19A27C1AA5B007EEAD5 /* NavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationView.swift; sourceTree = "<group>"; };
+		18B0C19C27C1B762007EEAD5 /* NodesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodesView.swift; sourceTree = "<group>"; };
+		18B0C19E27C1B84C007EEAD5 /* NodeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeCard.swift; sourceTree = "<group>"; };
+		18B0C1A027C1C905007EEAD5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		18B0C1A227C1DF63007EEAD5 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
+		18B0C1A427C20259007EEAD5 /* DatabaseTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseTypes.swift; sourceTree = "<group>"; };
+		18B0C1A627C21569007EEAD5 /* TextEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +147,11 @@
 			isa = PBXGroup;
 			children = (
 				18B0C15C27C198F7007EEAD5 /* ContentView.swift */,
+				18B0C19C27C1B762007EEAD5 /* NodesView.swift */,
+				18B0C19E27C1B84C007EEAD5 /* NodeCard.swift */,
+				18B0C1A627C21569007EEAD5 /* TextEditView.swift */,
+				18B0C19A27C1AA5B007EEAD5 /* NavigationView.swift */,
+				18B0C1A027C1C905007EEAD5 /* SettingsView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -154,6 +173,7 @@
 				18B0C17E27C19CEA007EEAD5 /* NavigationTypes.swift */,
 				18B0C18027C19D03007EEAD5 /* SearchingTypes.swift */,
 				18B0C18327C19DAB007EEAD5 /* DeviceTypes.swift */,
+				18B0C1A427C20259007EEAD5 /* DatabaseTypes.swift */,
 			);
 			path = types;
 			sourceTree = "<group>";
@@ -162,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				18B0C18B27C19E7D007EEAD5 /* Color+.swift */,
+				18B0C1A227C1DF63007EEAD5 /* String+.swift */,
 				18B0C19027C19FD2007EEAD5 /* UserDefaults+.swift */,
 				18B0C18E27C19E8E007EEAD5 /* View+.swift */,
 			);
@@ -247,19 +268,26 @@
 			files = (
 				18B0C18827C19DEC007EEAD5 /* CacheState.swift in Sources */,
 				18B0C19127C19FD2007EEAD5 /* UserDefaults+.swift in Sources */,
+				18B0C19B27C1AA5B007EEAD5 /* NavigationView.swift in Sources */,
 				18B0C18C27C19E7D007EEAD5 /* Color+.swift in Sources */,
 				18B0C17F27C19CEA007EEAD5 /* NavigationTypes.swift in Sources */,
 				18B0C17D27C19CC9007EEAD5 /* StateTreeTypes.swift in Sources */,
 				18B0C19927C1A816007EEAD5 /* environment.swift in Sources */,
 				18B0C19727C1A21A007EEAD5 /* AppModel.swift in Sources */,
 				18B0C17A27C19BA5007EEAD5 /* NodeModel.swift in Sources */,
+				18B0C1A527C20259007EEAD5 /* DatabaseTypes.swift in Sources */,
 				18B0C17827C19B91007EEAD5 /* TagModel.swift in Sources */,
+				18B0C1A327C1DF63007EEAD5 /* String+.swift in Sources */,
 				18B0C18127C19D03007EEAD5 /* SearchingTypes.swift in Sources */,
 				18B0C18627C19DCA007EEAD5 /* DeviceState.swift in Sources */,
+				18B0C19D27C1B762007EEAD5 /* NodesView.swift in Sources */,
+				18B0C1A727C21569007EEAD5 /* TextEditView.swift in Sources */,
 				18B0C18F27C19E8E007EEAD5 /* View+.swift in Sources */,
 				18B0C19527C1A175007EEAD5 /* store.swift in Sources */,
+				18B0C1A127C1C905007EEAD5 /* SettingsView.swift in Sources */,
 				18B0C18427C19DAB007EEAD5 /* DeviceTypes.swift in Sources */,
 				18B0C17527C19B3E007EEAD5 /* actions.swift in Sources */,
+				18B0C19F27C1B84C007EEAD5 /* NodeCard.swift in Sources */,
 				18B0C17027C19AFD007EEAD5 /* NavigationState.swift in Sources */,
 				18B0C15D27C198F7007EEAD5 /* ContentView.swift in Sources */,
 				18B0C19327C1A0D7007EEAD5 /* database.swift in Sources */,

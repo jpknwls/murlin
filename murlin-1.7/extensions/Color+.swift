@@ -12,5 +12,5 @@ extension Color {
     static var main: Color {
         return Color.purple
     }
-    
+
 }

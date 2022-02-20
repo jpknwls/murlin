@@ -57,7 +57,7 @@ public enum NavigationTransition: Equatable {
 }
 
 /// Defines the type of a pop operation.
-public enum PopDestination {
+public enum PopDestination: Equatable {
     /// Pop back to the previous view.
     case previous
 

@@ -8,14 +8,35 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var store: Store<AppModel, AppEnvironment, AppAction>
+
     var body: some View {
-        Text("Hello, world!")
+        VStack {
+            Button(
+                action: {
+                    store.send(action: .push(AnyView(OtherView(store: store)))) },
+                label: { Text("GO")})
             .padding()
+            
+            Button(
+                action: {
+                    store.send(action: .empty) },
+                label: { Text("NIL")})
+            .padding()
+        }
+            
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+struct OtherView: View {
+        @ObservedObject var store: Store<AppModel, AppEnvironment, AppAction>
+    var body: some View {
+          Button(
+            action: {
+                store.send(action: .pop()) },
+            label: { Text("Back")})
+            .padding()
+        }
 }
+
+

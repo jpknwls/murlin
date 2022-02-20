@@ -7,6 +7,8 @@
 
 import Foundation
 import CoreGraphics
+import SwiftUI
+import RealmSwift
 
 enum AppAction {
     /* DEVICE */
@@ -16,9 +18,18 @@ enum AppAction {
     case updateOrientation(Orientation)
     case hideKeyboard
     case setKeyboardHeight(CGRect)
+    /* NAVIGATION */
+    case push(AnyView, String? = nil)
+    case pop(PopDestination = .previous)
+    
     /* NODES STATE */
     /* NODE STATE */
-    /* NAVIGATION */
+    case updateSearchText(String)
+    case updateMode(Mode)
+    case loadQuery
+    case updateQuery([NodeProjection], String)
+    case updateSortOrder(SortOrder)
+
     case empty
 }
 

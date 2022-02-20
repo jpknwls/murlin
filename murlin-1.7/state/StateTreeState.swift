@@ -8,5 +8,5 @@
 import Foundation
 
 struct StateTree: Equatable {
-    var mode: Mode = .nodes(.idle)
+    var mode: Mode = .nodes(.idle(.idle))
 }

@@ -30,7 +30,7 @@ struct MurlinButton: ViewModifier {
             .foregroundColor(.white)
             .background(
                 RoundedRectangle(cornerRadius: 10.0)
-                .foregroundColor(Color.main.opacity(0.8))
+                .foregroundColor(Color.main)
             )
             .padding(4)
             .shadow(radius: 10.0)
@@ -58,14 +58,14 @@ struct GradientBackground: ViewModifier {
                     startPoint: .top,
                     endPoint: .bottomTrailing)
                 .opacity(0.3)
-                .edgesIgnoringSafeArea([.top, .bottom])
+                .edgesIgnoringSafeArea(.all)
                 .background(
                   LinearGradient(
                     colors: [.white, color],
                     startPoint: .top,
                     endPoint: .bottom)
                         .opacity(0.6)
-                        .edgesIgnoringSafeArea([.top, .bottom])
+                        .edgesIgnoringSafeArea(.all)
                                                     
                         )
                     )
