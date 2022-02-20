@@ -31,6 +31,11 @@ extension Realm {
     }
 }
 
+extension Realm.Configuration {
+    var defaultConfiguration: Realm.Configuration {
+        Realm.config
+    }
+}
 
 
 /*
@@ -106,6 +111,8 @@ func loadRandomData()  {
     guard let realm = Realm.DB else {return }
             
     try! realm.write {
+    
+       
         for _ in 1..<10000 {
             let titleLength =  Int.random(in: 1..<40)
             let noteLength =  Int.random(in: 1..<100)
@@ -130,6 +137,17 @@ func loadRandomData()  {
   
         }
     
+         for _ in 1..<10 {
+            let tag = Tag()
+            tag.name = randomString(length: Int.random(in: 4...20))
+            var nodesToAdd: Set<Node> = []
+            for _ in 1..<Int.random(in: 4...20) {
+                if let node = realm.objects(Node.self).randomElement() {
+                    nodesToAdd.insert(node)
+                }
+            }
+            realm.add(tag)
+        }
         
 
     }
@@ -158,7 +176,7 @@ struct Repository: RealmRepository {
   let configuration: Realm.Configuration
   let bgQueue = DispatchQueue(label: "bg_murlin_realm_queue")
   
-  init(configuration: Realm.Configuration = .defaultConfiguration) {
+  init(configuration: Realm.Configuration = Realm.config) {
     self.configuration = configuration
   }
 }
@@ -187,12 +205,27 @@ extension RealmRepository {
             
             
           var results = realm.objects(Node.self)
+          if let filters = filters, !filters.isEmpty {
+                 results = results.where {
+                    $0.tags.containsAny(in: filters)
+                 }
+          }
+          
           if !text.isEmpty {
                 let titlePred = NSPredicate(format: "title beginswith %@", text)
                 let notePred = NSPredicate(format: "note beginswith %@", text)
                 let compPred = NSCompoundPredicate(orPredicateWithSubpredicates: [titlePred, notePred])
-                results = results.filter(compPred).sorted(by: \.updated, ascending: false)
+                 results = results.filter(compPred)
           }
+          
+            switch sort {
+                case .updatedAge(let ascending):
+                    results = results.sorted(by: \.updated, ascending: ascending)
+                case .createdAge(let ascending):
+                    results = results.sorted(by: \.created, ascending: ascending)
+                case .alphabetical(let ascending):
+                    results = results.sorted(by: \.title, ascending: ascending)
+            }
          
              var projections: [NodeProjection] = []
             for result in results {

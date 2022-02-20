@@ -29,7 +29,7 @@ enum AppAction {
     case loadQuery
     case updateQuery([NodeProjection], String)
     case updateSortOrder(SortOrder)
-
+    case updateFilters(Set<Tag>)
     case empty
 }
 

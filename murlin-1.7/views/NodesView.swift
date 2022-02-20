@@ -40,7 +40,7 @@ struct NodesView: View {
             VStack {
                 headerBar
                 nodeList(store.state.nodes) { node in
-                    NodeCard(node: node) {
+                    NodeCard(node: node, isSelecting: store.state.state.mode.isSelecting) {
                         store.send(action: .push(AnyView(EmptyView())))
                     }
                 }
@@ -85,11 +85,13 @@ struct NodesView: View {
                             return AppAction.updateMode(.nodes(.idle(.idle)))
                         }
                     })) {
-                            
-//                        TagsPicker(with: store.state.activeFilters) { tags in
-//                                // add tags here
-//                                store.send(action: .updateFilters(tags))
-//                        }
+                        if let filterState = store.state.searching[store.state.rootID]?.filters {
+                            TagsPicker(with: filterState) { tags in
+                                // add tags here
+                                store.send(action: .updateFilters(tags))
+                            }
+                        }
+                        
             }
             .sheet(isPresented:
                 store.binding(

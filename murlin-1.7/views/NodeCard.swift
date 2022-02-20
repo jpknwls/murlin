@@ -26,20 +26,30 @@ import RealmSwift
  */
 struct NodeCard: View {
     let node: NodeProjection
+    let isSelecting: Bool
     
     let visit: () -> ()
+    //let select
 
     
 
     var body: some View {
-            VStack(alignment: .leading) {
-                HStack {
-                    title
-                    Spacer()
+            HStack {
+                if isSelecting {
+                    Circle()
+                        .frame(width: 30)
+                        .padding(4)
+                    
                 }
-                note
+                VStack(alignment: .leading) {
+                    HStack {
+                        title
+                        Spacer()
+                    }
+                    note
+                }
             }
-       
+            .animation(.spring())
             .foregroundColor(.white)
             .padding(4)
             .background(

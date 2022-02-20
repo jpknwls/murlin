@@ -11,3 +11,10 @@ enum Orientation: Equatable {
     case portrait
     case landscape
 }
+
+struct X {
+    var dict: Dictionary<Range<Int>,String>
+    
+}
+
+

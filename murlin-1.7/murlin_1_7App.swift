@@ -7,9 +7,10 @@
 
 import SwiftUI
 import os
+import RealmSwift
 
 @main
-struct murlin_1_7App: App {
+struct murlin_1_7App: SwiftUI.App {
 
     @ObservedObject var store: Store<AppModel, AppEnvironment, AppAction>
     
@@ -24,9 +25,10 @@ struct murlin_1_7App: App {
             NavigationStackView(store: store) {
                NodesView(store: store)
             }
+            .environment(\.realmConfiguration, Realm.config)
             .gradientBacking(color: Color.main)
             .onAppear {
-               // loadRandomData()
+                //loadRandomData()
                 store.send(action: .startKeyboardChangeListening)
                 store.send(action: .startKeyboardHideListening)
                 store.send(action: .startOrientationListening)

@@ -36,6 +36,8 @@ struct OtherView: View {
                 store.send(action: .pop()) },
             label: { Text("Back")})
             .padding()
+            
+    
         }
 }
 

@@ -39,6 +39,8 @@
 		18B0C1A327C1DF63007EEAD5 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C1A227C1DF63007EEAD5 /* String+.swift */; };
 		18B0C1A527C20259007EEAD5 /* DatabaseTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C1A427C20259007EEAD5 /* DatabaseTypes.swift */; };
 		18B0C1A727C21569007EEAD5 /* TextEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C1A627C21569007EEAD5 /* TextEditView.swift */; };
+		18B0C1A927C23470007EEAD5 /* TagsPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C1A827C23470007EEAD5 /* TagsPicker.swift */; };
+		18B0C1AB27C24FB7007EEAD5 /* BlockModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C1AA27C24FB7007EEAD5 /* BlockModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +75,8 @@
 		18B0C1A227C1DF63007EEAD5 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		18B0C1A427C20259007EEAD5 /* DatabaseTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseTypes.swift; sourceTree = "<group>"; };
 		18B0C1A627C21569007EEAD5 /* TextEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditView.swift; sourceTree = "<group>"; };
+		18B0C1A827C23470007EEAD5 /* TagsPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsPicker.swift; sourceTree = "<group>"; };
+		18B0C1AA27C24FB7007EEAD5 /* BlockModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +156,7 @@
 				18B0C1A627C21569007EEAD5 /* TextEditView.swift */,
 				18B0C19A27C1AA5B007EEAD5 /* NavigationView.swift */,
 				18B0C1A027C1C905007EEAD5 /* SettingsView.swift */,
+				18B0C1A827C23470007EEAD5 /* TagsPicker.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -161,6 +166,7 @@
 			children = (
 				18B0C17727C19B91007EEAD5 /* TagModel.swift */,
 				18B0C17927C19BA5007EEAD5 /* NodeModel.swift */,
+				18B0C1AA27C24FB7007EEAD5 /* BlockModel.swift */,
 				18B0C19627C1A21A007EEAD5 /* AppModel.swift */,
 			);
 			path = models;
@@ -271,11 +277,13 @@
 				18B0C19B27C1AA5B007EEAD5 /* NavigationView.swift in Sources */,
 				18B0C18C27C19E7D007EEAD5 /* Color+.swift in Sources */,
 				18B0C17F27C19CEA007EEAD5 /* NavigationTypes.swift in Sources */,
+				18B0C1AB27C24FB7007EEAD5 /* BlockModel.swift in Sources */,
 				18B0C17D27C19CC9007EEAD5 /* StateTreeTypes.swift in Sources */,
 				18B0C19927C1A816007EEAD5 /* environment.swift in Sources */,
 				18B0C19727C1A21A007EEAD5 /* AppModel.swift in Sources */,
 				18B0C17A27C19BA5007EEAD5 /* NodeModel.swift in Sources */,
 				18B0C1A527C20259007EEAD5 /* DatabaseTypes.swift in Sources */,
+				18B0C1A927C23470007EEAD5 /* TagsPicker.swift in Sources */,
 				18B0C17827C19B91007EEAD5 /* TagModel.swift in Sources */,
 				18B0C1A327C1DF63007EEAD5 /* String+.swift in Sources */,
 				18B0C18127C19D03007EEAD5 /* SearchingTypes.swift in Sources */,
