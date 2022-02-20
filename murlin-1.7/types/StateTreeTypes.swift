@@ -6,36 +6,15 @@
 //
 
 import Foundation
-/*
-    state tree
-    
-    enum RootMode {
-   case base
-   case selecting
-   case deleting
-   case settings
-   case editingFilter
-   case addingTags
-   case addingNodes
-}
 
-enum NodeMode {
-   case base
-   case editing
-   case deleting
-   case showingTags
-   case showingNodes
-   case showingBacklinks
-}
 
- */
- 
 enum Mode: Equatable {
-    case nodes(NodesMode)
+    case home(HomeMode)
+    case search(SearchMode)
     case node(NodeMode, Node)
 }
 
-enum NodesMode: Equatable {
+enum HomeMode: Equatable {
     case idle(IdleMode)
     case selecting(SelectingMode)
     case filtering
@@ -47,6 +26,11 @@ enum NodeMode: Equatable {
     case selecting(SelectingMode)
     case editing
     case filtering
+}
+
+enum SearchMode: Equatable {
+    case idle
+    case selecting(SelectingMode)
 }
 
 enum IdleMode: Equatable {
@@ -65,7 +49,7 @@ enum SelectingMode: Equatable {
 extension Mode {
     var isInSettings: Bool {
         switch self {
-            case .nodes(let mode):
+            case .home(let mode):
                 switch mode {
                     case .settings: return true
                     default: return false
@@ -76,7 +60,7 @@ extension Mode {
     
     var isFiltering: Bool {
         switch self {
-            case .nodes(let mode):
+            case .home(let mode):
                 switch mode {
                     case .filtering: return true
                     default: return false
@@ -87,7 +71,7 @@ extension Mode {
     
     var isAddingLinks: Bool {
         switch self {
-            case .nodes(let mode):
+            case .home(let mode):
                 switch mode {
                     case .selecting(let mode):
                         switch mode {
@@ -102,7 +86,7 @@ extension Mode {
     
     var isAddingTags: Bool {
          switch self {
-            case .nodes(let mode):
+            case .home(let mode):
                 switch mode {
                     case .selecting(let mode):
                         switch mode {
@@ -117,7 +101,7 @@ extension Mode {
     
        var isSelecting: Bool {
         switch self {
-            case .nodes(let mode):
+            case .home(let mode):
                 switch mode {
                     case .selecting(_): return true
                     default: return false
@@ -126,19 +110,25 @@ extension Mode {
                 switch mode {
                     case .selecting(_): return true
                     default: return false
+                }
+            case .search(let mode):
+                switch mode {
+                    case .idle: return false
+                    case .selecting(_): return true
                 }
         }
    }
    
    var isEditing: Bool {
      switch self {
-            case .nodes(_):
+            case .home(_):
                return false
             case .node(let mode, _):
                 switch mode {
                     case .editing: return true
                     default: return false
                 }
+            case .search: return false
         }
    }
     

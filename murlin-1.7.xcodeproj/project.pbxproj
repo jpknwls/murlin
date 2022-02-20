@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		18B0C15B27C198F7007EEAD5 /* murlin_1_7App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C15A27C198F7007EEAD5 /* murlin_1_7App.swift */; };
-		18B0C15D27C198F7007EEAD5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C15C27C198F7007EEAD5 /* ContentView.swift */; };
 		18B0C15F27C198FD007EEAD5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18B0C15E27C198FD007EEAD5 /* Assets.xcassets */; };
 		18B0C16227C198FD007EEAD5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18B0C16127C198FD007EEAD5 /* Preview Assets.xcassets */; };
 		18B0C16A27C199DE007EEAD5 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 18B0C16927C199DE007EEAD5 /* Realm */; };
@@ -33,7 +32,7 @@
 		18B0C19727C1A21A007EEAD5 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C19627C1A21A007EEAD5 /* AppModel.swift */; };
 		18B0C19927C1A816007EEAD5 /* environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C19827C1A816007EEAD5 /* environment.swift */; };
 		18B0C19B27C1AA5B007EEAD5 /* NavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C19A27C1AA5B007EEAD5 /* NavigationView.swift */; };
-		18B0C19D27C1B762007EEAD5 /* NodesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C19C27C1B762007EEAD5 /* NodesView.swift */; };
+		18B0C19D27C1B762007EEAD5 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C19C27C1B762007EEAD5 /* RootView.swift */; };
 		18B0C19F27C1B84C007EEAD5 /* NodeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C19E27C1B84C007EEAD5 /* NodeCard.swift */; };
 		18B0C1A127C1C905007EEAD5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C1A027C1C905007EEAD5 /* SettingsView.swift */; };
 		18B0C1A327C1DF63007EEAD5 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C1A227C1DF63007EEAD5 /* String+.swift */; };
@@ -41,12 +40,22 @@
 		18B0C1A727C21569007EEAD5 /* TextEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C1A627C21569007EEAD5 /* TextEditView.swift */; };
 		18B0C1A927C23470007EEAD5 /* TagsPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C1A827C23470007EEAD5 /* TagsPicker.swift */; };
 		18B0C1AB27C24FB7007EEAD5 /* BlockModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C1AA27C24FB7007EEAD5 /* BlockModel.swift */; };
+		18B0C1AD27C2D2DA007EEAD5 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C1AC27C2D2DA007EEAD5 /* HomeView.swift */; };
+		18B0C1AF27C2D2EB007EEAD5 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C1AE27C2D2EB007EEAD5 /* SearchView.swift */; };
+		18B0C1B127C2D2F4007EEAD5 /* NodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C1B027C2D2F4007EEAD5 /* NodeView.swift */; };
+		18B0C1B327C2F217007EEAD5 /* WallContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C1B227C2F217007EEAD5 /* WallContainer.swift */; };
+		18B0C1B527C2FAB4007EEAD5 /* BlockCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C1B427C2FAB4007EEAD5 /* BlockCard.swift */; };
+		18B0C1B727C2FAC3007EEAD5 /* TagCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C1B627C2FAC3007EEAD5 /* TagCard.swift */; };
+		18B0C1B927C2FAC9007EEAD5 /* TabCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C1B827C2FAC9007EEAD5 /* TabCard.swift */; };
+		18B0C1BB27C305F6007EEAD5 /* ListContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C1BA27C305F6007EEAD5 /* ListContainer.swift */; };
+		18B0C1BD27C305FF007EEAD5 /* BarContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C1BC27C305FF007EEAD5 /* BarContainer.swift */; };
+		18B0C1BF27C30609007EEAD5 /* TreeContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C1BE27C30609007EEAD5 /* TreeContainer.swift */; };
+		18B0C1C427C3068F007EEAD5 /* NodesPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C1C327C3068F007EEAD5 /* NodesPicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		18B0C15727C198F7007EEAD5 /* murlin-1.7.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "murlin-1.7.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		18B0C15A27C198F7007EEAD5 /* murlin_1_7App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = murlin_1_7App.swift; sourceTree = "<group>"; };
-		18B0C15C27C198F7007EEAD5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		18B0C15E27C198FD007EEAD5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		18B0C16127C198FD007EEAD5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		18B0C16F27C19AFD007EEAD5 /* NavigationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationState.swift; sourceTree = "<group>"; };
@@ -69,7 +78,7 @@
 		18B0C19627C1A21A007EEAD5 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
 		18B0C19827C1A816007EEAD5 /* environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = environment.swift; sourceTree = "<group>"; };
 		18B0C19A27C1AA5B007EEAD5 /* NavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationView.swift; sourceTree = "<group>"; };
-		18B0C19C27C1B762007EEAD5 /* NodesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodesView.swift; sourceTree = "<group>"; };
+		18B0C19C27C1B762007EEAD5 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		18B0C19E27C1B84C007EEAD5 /* NodeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeCard.swift; sourceTree = "<group>"; };
 		18B0C1A027C1C905007EEAD5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		18B0C1A227C1DF63007EEAD5 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
@@ -77,6 +86,17 @@
 		18B0C1A627C21569007EEAD5 /* TextEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditView.swift; sourceTree = "<group>"; };
 		18B0C1A827C23470007EEAD5 /* TagsPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsPicker.swift; sourceTree = "<group>"; };
 		18B0C1AA27C24FB7007EEAD5 /* BlockModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockModel.swift; sourceTree = "<group>"; };
+		18B0C1AC27C2D2DA007EEAD5 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		18B0C1AE27C2D2EB007EEAD5 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		18B0C1B027C2D2F4007EEAD5 /* NodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeView.swift; sourceTree = "<group>"; };
+		18B0C1B227C2F217007EEAD5 /* WallContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallContainer.swift; sourceTree = "<group>"; };
+		18B0C1B427C2FAB4007EEAD5 /* BlockCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockCard.swift; sourceTree = "<group>"; };
+		18B0C1B627C2FAC3007EEAD5 /* TagCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCard.swift; sourceTree = "<group>"; };
+		18B0C1B827C2FAC9007EEAD5 /* TabCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabCard.swift; sourceTree = "<group>"; };
+		18B0C1BA27C305F6007EEAD5 /* ListContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListContainer.swift; sourceTree = "<group>"; };
+		18B0C1BC27C305FF007EEAD5 /* BarContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarContainer.swift; sourceTree = "<group>"; };
+		18B0C1BE27C30609007EEAD5 /* TreeContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeContainer.swift; sourceTree = "<group>"; };
+		18B0C1C327C3068F007EEAD5 /* NodesPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodesPicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,13 +170,12 @@
 		18B0C17627C19B86007EEAD5 /* views */ = {
 			isa = PBXGroup;
 			children = (
-				18B0C15C27C198F7007EEAD5 /* ContentView.swift */,
-				18B0C19C27C1B762007EEAD5 /* NodesView.swift */,
-				18B0C19E27C1B84C007EEAD5 /* NodeCard.swift */,
-				18B0C1A627C21569007EEAD5 /* TextEditView.swift */,
-				18B0C19A27C1AA5B007EEAD5 /* NavigationView.swift */,
-				18B0C1A027C1C905007EEAD5 /* SettingsView.swift */,
-				18B0C1A827C23470007EEAD5 /* TagsPicker.swift */,
+				18B0C1C027C30640007EEAD5 /* main */,
+				18B0C1C127C3064F007EEAD5 /* cards */,
+				18B0C1C227C3065B007EEAD5 /* containers */,
+				18B0C1C627C306A6007EEAD5 /* text */,
+				18B0C1C727C306B8007EEAD5 /* navigation */,
+				18B0C1C527C30696007EEAD5 /* pickers */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -193,6 +212,65 @@
 				18B0C18E27C19E8E007EEAD5 /* View+.swift */,
 			);
 			path = extensions;
+			sourceTree = "<group>";
+		};
+		18B0C1C027C30640007EEAD5 /* main */ = {
+			isa = PBXGroup;
+			children = (
+				18B0C1A027C1C905007EEAD5 /* SettingsView.swift */,
+				18B0C19C27C1B762007EEAD5 /* RootView.swift */,
+				18B0C1AC27C2D2DA007EEAD5 /* HomeView.swift */,
+				18B0C1AE27C2D2EB007EEAD5 /* SearchView.swift */,
+				18B0C1B027C2D2F4007EEAD5 /* NodeView.swift */,
+			);
+			path = main;
+			sourceTree = "<group>";
+		};
+		18B0C1C127C3064F007EEAD5 /* cards */ = {
+			isa = PBXGroup;
+			children = (
+				18B0C19E27C1B84C007EEAD5 /* NodeCard.swift */,
+				18B0C1B427C2FAB4007EEAD5 /* BlockCard.swift */,
+				18B0C1B627C2FAC3007EEAD5 /* TagCard.swift */,
+				18B0C1B827C2FAC9007EEAD5 /* TabCard.swift */,
+			);
+			path = cards;
+			sourceTree = "<group>";
+		};
+		18B0C1C227C3065B007EEAD5 /* containers */ = {
+			isa = PBXGroup;
+			children = (
+				18B0C1B227C2F217007EEAD5 /* WallContainer.swift */,
+				18B0C1BA27C305F6007EEAD5 /* ListContainer.swift */,
+				18B0C1BC27C305FF007EEAD5 /* BarContainer.swift */,
+				18B0C1BE27C30609007EEAD5 /* TreeContainer.swift */,
+			);
+			path = containers;
+			sourceTree = "<group>";
+		};
+		18B0C1C527C30696007EEAD5 /* pickers */ = {
+			isa = PBXGroup;
+			children = (
+				18B0C1A827C23470007EEAD5 /* TagsPicker.swift */,
+				18B0C1C327C3068F007EEAD5 /* NodesPicker.swift */,
+			);
+			path = pickers;
+			sourceTree = "<group>";
+		};
+		18B0C1C627C306A6007EEAD5 /* text */ = {
+			isa = PBXGroup;
+			children = (
+				18B0C1A627C21569007EEAD5 /* TextEditView.swift */,
+			);
+			path = text;
+			sourceTree = "<group>";
+		};
+		18B0C1C727C306B8007EEAD5 /* navigation */ = {
+			isa = PBXGroup;
+			children = (
+				18B0C19A27C1AA5B007EEAD5 /* NavigationView.swift */,
+			);
+			path = navigation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,32 +352,42 @@
 			files = (
 				18B0C18827C19DEC007EEAD5 /* CacheState.swift in Sources */,
 				18B0C19127C19FD2007EEAD5 /* UserDefaults+.swift in Sources */,
+				18B0C1BD27C305FF007EEAD5 /* BarContainer.swift in Sources */,
 				18B0C19B27C1AA5B007EEAD5 /* NavigationView.swift in Sources */,
+				18B0C1BF27C30609007EEAD5 /* TreeContainer.swift in Sources */,
 				18B0C18C27C19E7D007EEAD5 /* Color+.swift in Sources */,
 				18B0C17F27C19CEA007EEAD5 /* NavigationTypes.swift in Sources */,
 				18B0C1AB27C24FB7007EEAD5 /* BlockModel.swift in Sources */,
 				18B0C17D27C19CC9007EEAD5 /* StateTreeTypes.swift in Sources */,
 				18B0C19927C1A816007EEAD5 /* environment.swift in Sources */,
 				18B0C19727C1A21A007EEAD5 /* AppModel.swift in Sources */,
+				18B0C1C427C3068F007EEAD5 /* NodesPicker.swift in Sources */,
 				18B0C17A27C19BA5007EEAD5 /* NodeModel.swift in Sources */,
 				18B0C1A527C20259007EEAD5 /* DatabaseTypes.swift in Sources */,
+				18B0C1BB27C305F6007EEAD5 /* ListContainer.swift in Sources */,
 				18B0C1A927C23470007EEAD5 /* TagsPicker.swift in Sources */,
 				18B0C17827C19B91007EEAD5 /* TagModel.swift in Sources */,
 				18B0C1A327C1DF63007EEAD5 /* String+.swift in Sources */,
+				18B0C1B127C2D2F4007EEAD5 /* NodeView.swift in Sources */,
+				18B0C1B327C2F217007EEAD5 /* WallContainer.swift in Sources */,
 				18B0C18127C19D03007EEAD5 /* SearchingTypes.swift in Sources */,
 				18B0C18627C19DCA007EEAD5 /* DeviceState.swift in Sources */,
-				18B0C19D27C1B762007EEAD5 /* NodesView.swift in Sources */,
+				18B0C1AD27C2D2DA007EEAD5 /* HomeView.swift in Sources */,
+				18B0C19D27C1B762007EEAD5 /* RootView.swift in Sources */,
 				18B0C1A727C21569007EEAD5 /* TextEditView.swift in Sources */,
 				18B0C18F27C19E8E007EEAD5 /* View+.swift in Sources */,
 				18B0C19527C1A175007EEAD5 /* store.swift in Sources */,
+				18B0C1B727C2FAC3007EEAD5 /* TagCard.swift in Sources */,
+				18B0C1B527C2FAB4007EEAD5 /* BlockCard.swift in Sources */,
 				18B0C1A127C1C905007EEAD5 /* SettingsView.swift in Sources */,
 				18B0C18427C19DAB007EEAD5 /* DeviceTypes.swift in Sources */,
 				18B0C17527C19B3E007EEAD5 /* actions.swift in Sources */,
 				18B0C19F27C1B84C007EEAD5 /* NodeCard.swift in Sources */,
 				18B0C17027C19AFD007EEAD5 /* NavigationState.swift in Sources */,
-				18B0C15D27C198F7007EEAD5 /* ContentView.swift in Sources */,
 				18B0C19327C1A0D7007EEAD5 /* database.swift in Sources */,
+				18B0C1AF27C2D2EB007EEAD5 /* SearchView.swift in Sources */,
 				18B0C17227C19B05007EEAD5 /* SearchingState.swift in Sources */,
+				18B0C1B927C2FAC9007EEAD5 /* TabCard.swift in Sources */,
 				18B0C15B27C198F7007EEAD5 /* murlin_1_7App.swift in Sources */,
 				18B0C18A27C19DFD007EEAD5 /* StateTreeState.swift in Sources */,
 			);

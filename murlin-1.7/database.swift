@@ -163,6 +163,8 @@ func loadRandomData()  {
 //  RealmRepository.swift
 //  Cob
 //
+//https://github.com/COBulletins/COB-iOS/blob/main/Cob/Repositories/RealmRepository.swift
+//
 //  Created by DaEun Kim on 2022/01/08.
 //
 import Combine

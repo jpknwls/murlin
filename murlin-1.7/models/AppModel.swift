@@ -15,15 +15,10 @@ struct AppModel: Equatable {
     var state = StateTree()
     var device = DeviceState()
     var navigation = NavigationState()
-    var searching = Dictionary<UUID, NodeSearchState>()
-    let rootID: UUID = .init()
-    
+    var nodeState = Dictionary<UUID, NodeSearchState>()
+    var nodesState = NodesSearchState()
     var nodes: [NodeProjection] = []
     
-    init() {
-        searching[rootID] = NodeSearchState()
-        //nodes = queryDatabase(sort: .updatedAge(false))
-    }
 
     static func update(
         model: AppModel,
@@ -115,29 +110,29 @@ struct AppModel: Equatable {
             case .updateSearchText(let newText):
                 var update = model
                 switch update.state.mode {
-                    case .nodes(let mode):
-                        if let state = update.searching[update.rootID] {
-                            var copy = state
-                            copy.searchText = newText
-                            update.searching[update.rootID] = copy
+                    case .home(let mode):
+                            update.nodesState.searchText = newText
                             return Update(state: update, fx:
                                     environment.repository
-                                        .fetchNodes(for: copy.searchText, filters: state.filters, sort: state.sort )
+                                        .fetchNodes(for: update.nodesState.searchText, filters: update.nodesState.filters, sort: update.nodesState.sort )
                                         .receive(on: RunLoop.main)
                                         .map { results, string in
                                             return AppAction.updateQuery(results, string) }
                                         .catch { _ in Just(.empty) }
                                         .eraseToAnyPublisher())
                             
-                        }
+                        
                         
                     case .node(let mode, let node):
-                        if let state = update.searching[node.uuid] {
+                        if let state = update.nodeState[node.uuid] {
                             var copy = state
                             copy.searchText = newText
-                            update.searching[node.uuid] = copy
+                            update.nodeState[node.uuid] = copy
                             break
                         }
+                    case .search(let mode):
+                        // TODO:
+                        break
                 }
                 return Update(state: update)
 
@@ -149,7 +144,7 @@ struct AppModel: Equatable {
                 
             case .updateQuery(let results, let string):
                 var update = model
-                guard let text = update.searching[update.rootID]?.searchText, text == string
+                guard update.nodesState.searchText == string
                 else { return Update(state: update) }
                 // dont update if our query is for a different string
                 update.nodes = results
@@ -158,24 +153,25 @@ struct AppModel: Equatable {
             case .updateSortOrder(let order):
                 var update = model
                 switch update.state.mode {
-                    case .nodes(let mode):
-                        if var searchState = update.searching[update.rootID] {
-                             searchState.sort = order
-                             update.searching[update.rootID] = searchState
-                             return Update(state: update, fx:
-                                    environment.repository
-                                        .fetchNodes(for: searchState.searchText, filters: searchState.filters, sort: searchState.sort)
-                                        .receive(on: RunLoop.main)
-                                        .map { results, string in
-                                            return AppAction.updateQuery(results, string) }
-                                        .catch { _ in Just(.empty) }
-                                        .eraseToAnyPublisher())
-                             
-                        }
+                    case .search(let mode):
+                        // TODO:
+                        break
+                    case .home(let mode):
+                         update.nodesState.sort = order
+                         return Update(state: update, fx:
+                                environment.repository
+                                    .fetchNodes(for: update.nodesState.searchText, filters: update.nodesState.filters, sort: update.nodesState.sort)
+                                    .receive(on: RunLoop.main)
+                                    .map { results, string in
+                                        return AppAction.updateQuery(results, string) }
+                                    .catch { _ in Just(.empty) }
+                                    .eraseToAnyPublisher())
+                         
+                        
                     case .node(let mode, let node):
-                        if var searchState = update.searching[node.uuid] {
+                        if var searchState = update.nodeState[node.uuid] {
                              searchState.sort = order
-                             update.searching[node.uuid] = searchState
+                             update.nodeState[node.uuid] = searchState
                         }
                 }
                 return Update(state: update)
@@ -183,24 +179,25 @@ struct AppModel: Equatable {
             case .updateFilters(let newFilters):
                 var update = model
                 switch update.state.mode {
-                    case .nodes(let mode):
-                        if var searchState = update.searching[update.rootID] {
-                             searchState.filters = newFilters
-                             update.searching[update.rootID] = searchState
-                             return Update(state: update, fx:
+                    case .search(let mode):
+                        break
+                        // TODO: 
+                    case .home(let mode):
+                        update.nodesState.filters = newFilters
+                        return Update(state: update, fx:
                                     environment.repository
-                                        .fetchNodes(for: searchState.searchText, filters: searchState.filters, sort: searchState.sort)
+                                        .fetchNodes(for: update.nodesState.searchText, filters: update.nodesState.filters, sort: update.nodesState.sort)
                                         .receive(on: RunLoop.main)
                                         .map { results, string in
                                             return AppAction.updateQuery(results, string) }
                                         .catch { _ in Just(.empty) }
                                         .eraseToAnyPublisher())
                              
-                        }
+                        
                     case .node(let mode, let node):
-                        if var searchState = update.searching[node.uuid] {
+                        if var searchState = update.nodeState[node.uuid] {
                              searchState.filters = newFilters
-                             update.searching[node.uuid] = searchState
+                             update.nodeState[node.uuid] = searchState
                         }
                 }
                 return Update(state: update)

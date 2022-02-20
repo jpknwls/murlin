@@ -66,6 +66,7 @@ final class Block: Object, ObjectKeyIdentifiable {
                 }
             }
         }
+        return base
     }
 }
 

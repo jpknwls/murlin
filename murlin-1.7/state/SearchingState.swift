@@ -7,9 +7,18 @@
 
 import Foundation
 
-struct NodeSearchState: Equatable {
+struct NodesSearchState: Equatable {
     var searchText: String = ""
     var filters: Set<Tag> = []
     var selection: Set<Node>  = []
+    var sort: SortOrder = .updatedAge(false)
+}
+
+
+struct NodeSearchState: Equatable {
+    var searchText: String = ""
+    var filters: Set<Tag> = []
+    var linkSelection: Set<Node>  = []
+    var blockSelection: Set<Block>  = []
     var sort: SortOrder = .updatedAge(false)
 }
