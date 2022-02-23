@@ -35,6 +35,9 @@ final class Node: Object, ObjectKeyIdentifiable {
 
     // PINNED
     @Persisted var pinned: Bool = false
+    
+    // CLIPPED
+    @Persisted var clipped: Bool = false
 
 
     var url: URL? {

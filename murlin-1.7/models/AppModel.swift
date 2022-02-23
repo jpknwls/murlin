@@ -12,14 +12,24 @@ import SwiftUI
 import RealmSwift
 
 struct AppModel: Equatable {
-    var state = StateTree()
+    var mode = ModeTree()
     var device = DeviceState()
     var navigation = NavigationState()
+    var cache = CacheState()
+    var focusedNode: Node?
+
+
+    
+    
     var nodeState = Dictionary<UUID, NodeSearchState>()
     var nodesState = NodesSearchState()
     var nodes: [NodeProjection] = []
-    
 
+
+    /*
+        KEY: PUT WITH ANIMATION HERE!!!!!!
+        
+     */
     static func update(
         model: AppModel,
         environment: AppEnvironment,
@@ -41,59 +51,118 @@ struct AppModel: Equatable {
                 update.device.orientation = newOrientation
                 return Update(state: update)
             
-            case .startKeyboardChangeListening:
-                return Update(
-                        state: model,
-                        fx: environment.startKeyboardChangeListening())
-                        
-            case .startKeyboardHideListening:
+            case .startKeyboardListening:
                 return Update(
                         state: model,
                         fx: environment.startKeyboardListening())
- 
-            case .hideKeyboard:
-                var update = model
-                update.device.keyboard = .zero
-                return Update(state: update)
 
-            case .setKeyboardHeight(let newRect):
+            case .updateKeyboard(let newRect):
                 var update = model
-                if newRect.origin.y >= UIScreen.main.bounds.height {
-                    update.device.keyboard = .zero
-                } else {
-                    update.device.keyboard = newRect
+                withAnimation(.easeInOut) {
+                    if newRect.origin.y >= UIScreen.main.bounds.height {
+                        update.device.keyboard = .zero
+                    } else {
+                        update.device.keyboard = newRect
+                    }
                 }
                 return Update(state: update)
 
 /*
         ------------------------- NAVIGATION ----------------------
 */
-           case .pop(let destination):
+           case .go(let destination):
              var update = model
              withAnimation(update.navigation.easing) {
                 update.navigation.navigationType = .pop
                 switch destination {
                     case .root:
-                        update.navigation.viewStack.popToRoot()
+                       // update.navigation.viewStack.popToRoot()
+                        break
                     case .view(let viewId):
-                        update.navigation.viewStack.popToView(withId: viewId)
-                    default:
-                        update.navigation.viewStack.popToPrevious()
+                        if let goTo = update.navigation.viewMap[viewId] {
+                            update.navigation.currentView = goTo
+                        }
+                    default: break
+                      //  update.navigation.viewStack.popToPrevious()
                     }
         
             }
             return Update(state: update)
 
-           case .push(let newView, let id):
+           case .add(let node):
             var update = model
              withAnimation(update.navigation.easing) {
                 update.navigation.navigationType = .push
-                update.navigation.viewStack.push(
-                    ViewElement(
-                        id: id == nil ? UUID().uuidString : id!,
-                        wrappedElement: newView))
+//                update.navigation.viewStack.push(
+//                    ViewElement(
+//                        id: id,
+//                        wrappedElement: newView))
+//
+                let newView = AnyView(NodeView(node: node))
+                let newElement = ViewElement(
+                        node: node,
+                        wrappedElement: newView)
+                
+                update.navigation.viewMap[node.uuid.uuidString] = newElement
+                update.navigation.currentView = newElement
             }
             return Update(state: update)
+            
+            case .remove(let id):
+                var update = model
+                update.navigation.viewMap.removeValue(forKey: id)
+                return Update(state: update)
+/*
+        ------------------------- MODE ----------------------
+*/
+
+
+            case .updateTab(let newMode):
+                var update = model
+                update.mode.tab = newMode
+                switch newMode {
+                    case .node(let mode, let node):
+                        update.navigation.update(to: node.uuid.uuidString)
+                    default: break
+                }
+                return Update(state: update)
+                
+            case .updateSheet(let newSheet):
+                var update = model
+                update.mode.sheet = newSheet
+                return Update(state: update)
+
+
+/*
+        ------------------------- CACHE ----------------------
+*/
+
+
+        case .addLinkMetadataKey(let url):
+            return Update(state: model, fx: model.cache.addLinkToCache(url: url))
+            
+
+        case .setLinkMetadata(let key, let metadata):
+            var update  = model
+            update.cache.setLinkMetadata(key: key, metadata: metadata)
+            return Update(state: model)
+
+/*
+        ------------------------- FOCUS ----------------------
+*/
+
+        case .updateFocus(let newFocus):
+            var update = model
+            update.focusedNode = newFocus
+            return Update(state: model)
+
+
+
+
+
+
+
+
 /*
         ------------------------- STATE ----------------------
 */
@@ -109,8 +178,8 @@ struct AppModel: Equatable {
     
             case .updateSearchText(let newText):
                 var update = model
-                switch update.state.mode {
-                    case .home(let mode):
+                switch update.mode.tab {
+                    case .search(let mode):
                             update.nodesState.searchText = newText
                             return Update(state: update, fx:
                                     environment.repository
@@ -130,29 +199,26 @@ struct AppModel: Equatable {
                             update.nodeState[node.uuid] = copy
                             break
                         }
-                    case .search(let mode):
+                    case .home(let mode):
                         // TODO:
                         break
                 }
                 return Update(state: update)
 
             
-            case .updateMode(let newMode):
-                var update = model
-                update.state.mode = newMode
-                return Update(state: update)
-                
             case .updateQuery(let results, let string):
                 var update = model
                 guard update.nodesState.searchText == string
                 else { return Update(state: update) }
                 // dont update if our query is for a different string
-                update.nodes = results
+                withAnimation(.easeIn) {
+                    update.nodes = results
+                }
                 return Update(state: update)
                 
             case .updateSortOrder(let order):
                 var update = model
-                switch update.state.mode {
+                switch update.mode.tab {
                     case .search(let mode):
                         // TODO:
                         break
@@ -178,7 +244,7 @@ struct AppModel: Equatable {
             
             case .updateFilters(let newFilters):
                 var update = model
-                switch update.state.mode {
+                switch update.mode.tab {
                     case .search(let mode):
                         break
                         // TODO: 

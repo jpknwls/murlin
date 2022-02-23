@@ -19,17 +19,15 @@ struct RootView: View {
             VStack {
                 headerBar
                 tabBar
-                //contentView
-                /*
-                    home
-                    search
-                    node(id)
-                 */
-                nodeList(store.state.nodes) { node in
-                    NodeCard(node: node, isSelecting: store.state.state.mode.isSelecting) {
-                        store.send(action: .push(AnyView(EmptyView())))
+
+                    switch store.state.mode.tab {
+                        case .home:  HomeView()
+                        case .search:  SearchView(nodes: store.state.nodes)
+                        case .node(let mode, let node):
+                            NavigationStackView(store: store) {
+                                NodeView(node: node)
+                        }
                     }
-                }
                 Spacer()
             }
         
@@ -41,66 +39,32 @@ struct RootView: View {
         .onAppear {
                 store.send(action: .loadQuery)
         }
-            .sheet(isPresented:
-                store.binding(
-                    get: { $0.state.mode.isAddingTags },
-                    tag: { isShowing in
-                        if isShowing {
-                            return AppAction.updateMode(.home(.selecting(.addingTag)))
-                        } else {
-                            return AppAction.updateMode(.home(.selecting(.idle)))
-                        }
-                    })) {
-//                        TagsPicker(with: currentlySelectedTags) { tags in // constrain to the tags from selection?
-//                                // add tags here
-//                        }
-            }
-            .sheet(isPresented:
-                store.binding(
-                    get: { $0.state.mode.isFiltering },
-                    tag: { isShowing in
-                        if isShowing {
-                            return AppAction.updateMode(.home(.filtering))
-                        } else {
-                            return AppAction.updateMode(.home(.idle(.idle)))
-                        }
-                    })) {
-                            TagsPicker(with: store.state.nodesState.filters) { tags in
-                                // add tags here
-                                store.send(action: .updateFilters(tags))
+        .sheet(isPresented: store.binding(
+                        get: { $0.mode.sheet.isOpen },
+                        tag: { isShowing in
+                            if isShowing {
+                                return AppAction.updateSheet(.settings)                               
+                            } else {
+                                return AppAction.updateSheet(.idle)
+                                
                             }
+                        })) {
                         
-                        
-            }
-            .sheet(isPresented:
-                store.binding(
-                    get: { $0.state.mode.isAddingLinks },
-                    tag: { isShowing in
-                        if isShowing {
-                            return AppAction.updateMode(.home(.selecting(.addingLink)))
-                        } else {
-                            return AppAction.updateMode(.home(.selecting(.idle)))
+                            switch store.state.mode.sheet {
+                                case .addTab: AddTabPicker() { node in
+                                    store.send(action: .add(node)) // add nodeView to viewMap
+                                    store.send(action: .updateTab(.node(.idle, node))) // close sheet
+                                    store.send(action: .updateSheet(.idle)) // move tab to new node
+                                }
+                                case .settings: SettingsView()
+                                
+                                
+                                default: EmptyView()
+                            }
                         }
-                    })) {
-//                        NodesPicker { nodes in
-//                            // add nodes here
-//                        }
-            }
-             .sheet(isPresented:
-                store.binding(
-                    get: { $0.state.mode.isInSettings },
-                    tag: { isShowing in
-                        if isShowing {
-                            return AppAction.updateMode(.home(.settings))
-                        } else {
-                            return AppAction.updateMode(.home(.idle(.idle)))
-                        }
-                    })) {
-                    BackgroundView(backgroundColor:Color.main.opacity(0.6)) {
-                            SettingsView()
                     }
-            }
-        }
+        
+                        
     /*
         sheet
      */
@@ -113,7 +77,7 @@ extension RootView {
         
     var headerBar: some View {
         Group {
-            if !store.state.device.isKeyboardOpen && !store.state.state.mode.isSelecting {
+            if !store.state.device.isKeyboardOpen && !store.state.mode.tab.isSelecting {
                    HStack {
                     settingsButton
                         .padding()
@@ -125,13 +89,51 @@ extension RootView {
                 }
             }
         }
-         .animation(.easeInOut)
         .transition(.move(edge: .top))
     }
     
     var tabBar: some View {
-        EmptyView()
+        HStack {
+            //home
+            Button(action: {
+                store.send(action: .updateTab(.home(.idle)))
+            }, label: {
+                Image(systemName: Globals.homeIcon)
+            })
+            .tab()
+            //search
+            Button(action: {
+                store.send(action: .updateTab(.search(.idle)))
+            }, label: {
+                Image(systemName: Globals.searchIcon)
+            })
+            .tab()
+            Spacer()
+            ZStack(alignment: .trailing) {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(store.state.navigation.viewMap.values.map { $0 }) { value in
+                            Button(action: {
+                                store.send(action: .updateTab(.node(.idle, value.node)))
+                            }, label: {
+                               Text(value.node.title)
+                            })
+                            .tab(isNodeTab: true)
+
+                        }
+                    }
+                }
+                
+                Button(
+                        action: { store.send(action: .updateSheet(.addTab)) },
+                        label: { Image(systemName: Globals.addIcon) }) //TODO: add tab action
+                            .tab()
+
+            }
+        }
+            .disabled(store.state.mode.sheet.isOpen)
     }
+    
     
     var toolBar: some View {
        Group {
@@ -142,7 +144,7 @@ extension RootView {
                         .padding(4)
                     }
                     selectButton
-                    switch store.state.state.mode {
+                    switch store.state.mode.tab {
                         case .home(let mode):
                             switch mode {
                                 case .idle:
@@ -161,10 +163,9 @@ extension RootView {
                     }
                     
                 }
+                .padding([.leading, .trailing], 4)
+                .transition(.move(edge: .bottom))
         }
-        .padding([.leading, .trailing], 4)
-        .animation(.spring())
-        .transition(.move(edge: .bottom))
     }
     
     
@@ -172,7 +173,7 @@ extension RootView {
         HStack {
             TextEditView(placeholder: "Search or Add Note", text: store.binding(
                     get: { state in
-                        state.nodesState.searchText ?? ""
+                        state.nodesState.searchText
                     },
                     tag: { newText in AppAction.updateSearchText(newText) } )
             )
@@ -192,10 +193,10 @@ extension RootView {
     
     var selectButton: some View {
             Button(action: {
-                if store.state.state.mode.isSelecting {
-                    store.send(action: .updateMode(.home(.idle(.idle))))
+                if store.state.mode.tab.isSelecting {
+                    store.send(action: .updateTab(.home(.idle)))
                 } else {
-                    store.send(action: .updateMode(.home(.selecting(.idle))))
+                    store.send(action: .updateTab(.home(.selecting(.idle))))
                 }
             },
             label: {
@@ -207,7 +208,7 @@ extension RootView {
          // tag picker, pass in previously filtered tags
           // button
         Button(action: {
-           store.send(action: .updateMode(.home(.filtering)))
+           store.send(action: .updateSheet(.filterTags))
         },
         label: {
             Image(systemName: "line.horizontal.3")
@@ -278,7 +279,7 @@ extension RootView {
     }
     var addNodesButton: some View {
         Button( action: {
-          store.send(action: .updateMode(.home(.selecting(.addingLink))))
+          store.send(action: .updateTab(.home(.selecting(.addingLink))))
             },
             label: {
                 HStack {
@@ -291,7 +292,7 @@ extension RootView {
     }
     var addTagsButton: some View {
           Button( action: {
-            store.send(action: .updateMode(.home(.selecting(.addingTag))))
+            store.send(action: .updateTab(.home(.selecting(.addingTag))))
             },
             label: {
                 HStack {
@@ -304,7 +305,7 @@ extension RootView {
     }
     var deleteNodesButton: some View {
          Button( action: {
-             store.send(action: .updateMode(.home(.selecting(.deleting))))
+             store.send(action: .updateTab(.home(.selecting(.deleting))))
             },
             label: {
                 Image(systemName: "minus")
@@ -315,7 +316,7 @@ extension RootView {
     }
     var settingsButton: some View {
             Button(action: {
-             store.send(action: .updateMode(.home(.settings)))
+             store.send(action: .updateSheet(.settings))
             },
             label: {
                 Image(systemName: "gearshape")
@@ -323,17 +324,6 @@ extension RootView {
         .button()
 
     }
+
     
-    func nodeList(_ nodes: [NodeProjection], content: @escaping (NodeProjection) -> (NodeCard)) -> some View {
-        return ScrollView {
-            LazyVStack {
-                ForEach(nodes, id: \.self.uuid) { node in
-                    content(node)
-                    //.frame(height: 60)
-                        .padding([.bottom], 4)
-                    //.cornerRadius(10.0)
-                }
-            }
-        }
-    }
 }

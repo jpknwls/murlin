@@ -22,15 +22,12 @@ struct murlin_1_7App: SwiftUI.App {
     }
     var body: some Scene {
         WindowGroup {
-            NavigationStackView(store: store) {
-               RootView(store: store)
-            }
+            RootView(store: store)
             .environment(\.realmConfiguration, Realm.config)
             .gradientBacking(color: Color.main)
             .onAppear {
-                //loadRandomData()
-                store.send(action: .startKeyboardChangeListening)
-                store.send(action: .startKeyboardHideListening)
+                loadRandomData()
+                store.send(action: .startKeyboardListening)
                 store.send(action: .startOrientationListening)
             }
         }
@@ -39,6 +36,120 @@ struct murlin_1_7App: SwiftUI.App {
 
 
 /*
+
+        state
+            focus
+                focusedNode: Node?
+            mode
+                tabs
+                    [ home, search, node(:id) ]
+                    
+                sheet
+                    [ settings, history, clips, backlinks, addNode, addTag, filterTags, showTag ]
+        
+        
+            device
+                keyboard
+                    keyboard: CGRect
+                    - startListening()
+                orientation
+                    [ .portrait, .landscape ]
+                    - startListening()
+            
+            navigation
+                viewMap: [String: ViewElement]
+                currentView: ViewElement? //either search, node(:id) or nil for home?
+        
+
+            searchState
+                map (String, SearchState)
+                
+                    staet:
+                        - searchText
+                        - filters
+                        - selection
+                        - sort
+
+            history
+                [Node]
+                
+            clips
+                @ObservedResults(Node.self, filter: "clipped == true")
+
+
+            cache
+                [URLString: LPMetadata]
+                
+                
+
+
+
+    icons
+        home
+        settings
+        search
+        select
+        add
+        delete
+        node?
+        backlinks
+        links
+        tag
+        history
+        clips
+        
+        
+    mode
+        - updateSheetMode()
+        - updateTabMode()
+        
+    device operations
+          - startKeyboardListening()
+          - updateKeyboard()
+          -------
+          - startOrientationListening()
+          - updateOrientation()
+            
+
+    navigation operations
+        - push(String, View)
+            add (String, ViewElement) to map, switch currentView to this element
+        - pop(String)
+            remove String from map, reset currentView to ?
+        - go(String)
+            get String from map, set this to currentView
+
+
+
+    database operations
+        - query
+        - addNode
+        - deleteNode
+        - addTag
+        - deleteTag
+        - addNodeToClips
+        - removeNodeFromClips
+        - addTagsToNodes (can be singular on each)
+        - addLinksToNodes (can be singular on each)
+        
+        
+
+    cache operations
+        addToCache
+        setMetadata
+        
+    search operations
+        updateText
+        updateSort
+        updateFilters
+        updateSelection
+        
+
+    text editing operations
+        ...
+    
+
+
 
         RootView
             headerBar

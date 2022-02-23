@@ -11,7 +11,7 @@ import RealmSwift
 import os
 
 extension Realm {
-    static var schemaVersion: UInt64 = 2
+    static var schemaVersion: UInt64 = 4
 }
 
 extension Realm {
@@ -115,7 +115,7 @@ func loadRandomData()  {
        
         for _ in 1..<10000 {
             let titleLength =  Int.random(in: 1..<40)
-            let noteLength =  Int.random(in: 1..<100)
+            let noteLength =  Int.random(in: 50..<500)
             let childrenNumber = Int.random(in: 1..<5)
             var children: Set<ObjectId> = []
 
@@ -203,10 +203,12 @@ extension RealmRepository {
     future { (promise) in
       bgQueue.async {
         autoreleasepool {
+        let timer = CFTimer()
           guard let realm = Realm.DB else {  return promise(.failure(RealmError.failToOpenRealm)) }
             
             
           var results = realm.objects(Node.self)
+          print(results.count)
           if let filters = filters, !filters.isEmpty {
                  results = results.where {
                     $0.tags.containsAny(in: filters)
@@ -214,8 +216,8 @@ extension RealmRepository {
           }
           
           if !text.isEmpty {
-                let titlePred = NSPredicate(format: "title beginswith %@", text)
-                let notePred = NSPredicate(format: "note beginswith %@", text)
+                let titlePred = NSPredicate(format: "title CONTAINS[c] %@", text)
+                let notePred = NSPredicate(format: "note CONTAINS[c] %@", text)
                 let compPred = NSCompoundPredicate(orPredicateWithSubpredicates: [titlePred, notePred])
                  results = results.filter(compPred)
           }
@@ -229,9 +231,13 @@ extension RealmRepository {
                     results = results.sorted(by: \.title, ascending: ascending)
             }
          
-             var projections: [NodeProjection] = []
+            var projections: [NodeProjection] = []
             for result in results {
                 projections.append(NodeProjection(id: result._id, uuid: result.uuid, title: result.title, note: result.note))
+            }
+            timer.stop()
+            if let time = timer.duration {
+                print(time)
             }
           promise(.success((projections, text)))
         }

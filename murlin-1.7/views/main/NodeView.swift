@@ -7,3 +7,13 @@
 
 import Foundation
 import SwiftUI
+import RealmSwift
+
+
+struct NodeView: View {
+    @ObservedRealmObject var node: Node
+    
+    var body: some View {
+        Text(node.title)
+    }
+}

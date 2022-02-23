@@ -74,10 +74,14 @@ public enum PopDestination: Equatable {
 
 //the actual element in the stack
 struct ViewElement: Identifiable, Equatable {
-    let id: String
+    let node: Node
     let wrappedElement: AnyView
 
     static func == (lhs: ViewElement, rhs: ViewElement) -> Bool {
         lhs.id == rhs.id
+    }
+    
+    var id: UUID {
+        node.uuid
     }
 }

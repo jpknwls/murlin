@@ -29,20 +29,34 @@ struct AppEnvironment {
     }
     
     func startKeyboardListening() -> Fx<AppAction> {
-        NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)
-                    .map {_ in AppAction.hideKeyboard }
-                    .eraseToAnyPublisher()
-    }
-    
-    func startKeyboardChangeListening() -> Fx<AppAction> {
-          NotificationCenter.default.publisher(for: UIResponder.keyboardDidChangeFrameNotification)
-                    .map { notification in
-                        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return AppAction.hideKeyboard }
+        // we should merge this with keyboardchange
+        
+        let keyboardChangePublisher = NotificationCenter.default.publisher(for: UIResponder.keyboardDidChangeFrameNotification)
+            .map { notification -> AppAction in
+                        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return AppAction.updateKeyboard(.zero)  }  // hidingKeyboard
                         let newRect = keyboardValue.cgRectValue
-                        return AppAction.setKeyboardHeight(newRect)
-                    }.eraseToAnyPublisher()
+                        return AppAction.updateKeyboard(newRect)
+                    }
+                    
+        let keyboardHidePublisher = NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)
+                    .map {_ in AppAction.updateKeyboard(.zero) } // hidingKeyboard
+                    
+                    
+        return keyboardChangePublisher.merge(with: keyboardHidePublisher).eraseToAnyPublisher()
     }
     
+    
+
+    
+//    func startKeyboardChangeListening() -> Fx<AppAction> {
+//          NotificationCenter.default.publisher(for: UIResponder.keyboardDidChangeFrameNotification)
+//                    .map { notification in
+//                        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return AppAction.setKeyboardHeight(.zero)  }  // hidingKeyboard
+//                        let newRect = keyboardValue.cgRectValue
+//                        return AppAction.setKeyboardHeight(newRect)
+//                    }.eraseToAnyPublisher()
+//    }
+//    
     /*
         updateSearchText(
             -> send this value to our environment

@@ -19,6 +19,6 @@ struct NodeSearchState: Equatable {
     var searchText: String = ""
     var filters: Set<Tag> = []
     var linkSelection: Set<Node>  = []
-    var blockSelection: Set<Block>  = []
+    //var blockSelection: Set<Block>  = []
     var sort: SortOrder = .updatedAge(false)
 }

@@ -9,27 +9,53 @@ import Foundation
 import CoreGraphics
 import SwiftUI
 import RealmSwift
+import LinkPresentation
 
 enum AppAction {
     /* DEVICE */
     case startOrientationListening
-    case startKeyboardHideListening
-    case startKeyboardChangeListening
+    case startKeyboardListening
     case updateOrientation(Orientation)
-    case hideKeyboard
-    case setKeyboardHeight(CGRect)
-    /* NAVIGATION */
-    case push(AnyView, String? = nil)
-    case pop(PopDestination = .previous)
+    case updateKeyboard(CGRect)
     
-    /* NODES STATE */
-    /* NODE STATE */
+    /* NAVIGATION */
+    case add(Node) // view, id, title (for tab)
+    case go(PopDestination = .previous)
+    case remove(String)
+    
+    /* MODE */
+    case updateTab(TabMode)
+    case updateSheet(SheetMode)
+    
+    /* CACHE */
+    case addLinkMetadataKey(URL)
+    case setLinkMetadata(String, LPLinkMetadata)
+    
+    /* FOCUS*/
+    case updateFocus(Node?)
+    
+    /* FIND STATE */
     case updateSearchText(String)
-    case updateMode(Mode)
-    case loadQuery
     case updateQuery([NodeProjection], String)
     case updateSortOrder(SortOrder)
     case updateFilters(Set<Tag>)
+    
+    /* QUERY STATE*/
+    case loadQuery
+    
+    
+    /* DATA BASE */
+    
+    
+    
+    
+    /* CLIPS */
+    /* HISTORY */
+    //case removeFromHistory(Node)
+    /* NODES STATE */
+    /* NODE STATE */
+
+    
     case empty
 }
 

@@ -21,7 +21,7 @@ extension View {
     button style
  */
 
-struct MurlinButton: ViewModifier {
+struct MurlinButtonStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
             .frame(height: 40)
@@ -33,15 +33,43 @@ struct MurlinButton: ViewModifier {
                 .foregroundColor(Color.main)
             )
             .padding(4)
-            .shadow(radius: 10.0)
+            .shadow(radius: 5.0)
        }
 }
 
 extension View {
     func button() -> some View {
-        modifier(MurlinButton())
+        modifier(MurlinButtonStyle())
     }
 }
+
+/*
+    tab style
+ */
+
+struct MurlinTabStyle: ViewModifier {
+    let nodeTab: Bool
+    func body(content: Content) -> some View {
+        content
+            .frame(minWidth: 40, maxWidth: nodeTab ? 90 : 40)
+            .lineLimit(1)
+            .padding(4)
+            .foregroundColor(.white)
+            .background(
+                RoundedRectangle(cornerRadius: 10.0)
+                .foregroundColor(Color.main)
+            )
+            .padding(2)
+            .shadow(radius: 3.0)
+       }
+}
+
+extension View {
+    func tab(isNodeTab: Bool = false) -> some View {
+        modifier(MurlinTabStyle(nodeTab: isNodeTab))
+    }
+}
+
 
 
 /*

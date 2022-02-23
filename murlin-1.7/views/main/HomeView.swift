@@ -7,3 +7,13 @@
 
 import Foundation
 import SwiftUI
+import RealmSwift
+
+
+struct HomeView: View {
+  //  let recentFilter: NSPredicate? = nil
+    
+    var body: some View {
+        Text("Home")
+    }
+}

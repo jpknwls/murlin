@@ -7,36 +7,47 @@
 
 import Foundation
 
+// add data into modes???
+enum SheetMode: Equatable {
+    case settings
+    case history
+    case backlinks
+    case addTab
+    case addNodes
+    case addTags
+    case filterTags
+    case showTag
+    case clips
+    case idle
+}
 
-enum Mode: Equatable {
+enum TabMode: Equatable {
     case home(HomeMode)
     case search(SearchMode)
     case node(NodeMode, Node)
 }
 
 enum HomeMode: Equatable {
-    case idle(IdleMode)
+    case idle
     case selecting(SelectingMode)
-    case filtering
-    case settings
+    case focusing
+    case deleting
 }
 
 enum NodeMode: Equatable {
-    case idle(IdleMode)
+    case idle
     case selecting(SelectingMode)
     case editing
-    case filtering
+    case focusing
+    case deleting
 }
 
 enum SearchMode: Equatable {
     case idle
     case selecting(SelectingMode)
+    case focusing
 }
 
-enum IdleMode: Equatable {
-    case idle
-    case deleting
-}
 
 enum SelectingMode: Equatable {
   case idle
@@ -46,59 +57,51 @@ enum SelectingMode: Equatable {
 }
 
 //convenience accessors
-extension Mode {
+extension SheetMode {
     var isInSettings: Bool {
         switch self {
-            case .home(let mode):
-                switch mode {
-                    case .settings: return true
-                    default: return false
-                }
+            case .settings: return true
             default: return false
         }
     }
     
     var isFiltering: Bool {
         switch self {
-            case .home(let mode):
-                switch mode {
-                    case .filtering: return true
-                    default: return false
-                }
+            case .filterTags: return true
             default: return false
         }
     }
     
     var isAddingLinks: Bool {
         switch self {
-            case .home(let mode):
-                switch mode {
-                    case .selecting(let mode):
-                        switch mode {
-                            case .addingLink: return true
-                            default: return false
-                        }
-                    default: return false
-                }
+            case .addNodes: return true
             default: return false
         }
     }
     
     var isAddingTags: Bool {
          switch self {
-            case .home(let mode):
-                switch mode {
-                    case .selecting(let mode):
-                        switch mode {
-                            case .addingTag: return true
-                            default: return false
-                        }
-                    default: return false
-                }
+            case .addTags: return true
             default: return false
         }
     }
     
+    var isAddingTab: Bool {
+        switch self {
+            case .addTab: return true
+            default: return false
+        }
+    }
+    
+    var isOpen: Bool {
+        switch self {
+            case .idle: return false
+            default: return true
+        }
+    }
+}
+
+extension TabMode {
        var isSelecting: Bool {
         switch self {
             case .home(let mode):
@@ -113,8 +116,8 @@ extension Mode {
                 }
             case .search(let mode):
                 switch mode {
-                    case .idle: return false
                     case .selecting(_): return true
+                    default: return false
                 }
         }
    }

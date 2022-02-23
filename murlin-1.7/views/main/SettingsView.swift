@@ -23,8 +23,10 @@ class SettingsModel: ObservableObject {
 
 struct SettingsView: View {
     var body: some View {
-        VStack {
-            Spacer()
-        }.gradientBacking(color: Color.main.opacity(0.7))
+        BackgroundView(backgroundColor: Color.main) {
+            VStack {
+                Spacer()
+            }
+        }
     }
 }

@@ -51,6 +51,9 @@
 		18B0C1BD27C305FF007EEAD5 /* BarContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C1BC27C305FF007EEAD5 /* BarContainer.swift */; };
 		18B0C1BF27C30609007EEAD5 /* TreeContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C1BE27C30609007EEAD5 /* TreeContainer.swift */; };
 		18B0C1C427C3068F007EEAD5 /* NodesPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C1C327C3068F007EEAD5 /* NodesPicker.swift */; };
+		18B0C1C927C5A632007EEAD5 /* globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C1C827C5A631007EEAD5 /* globals.swift */; };
+		18B0C1CB27C5ED10007EEAD5 /* TabPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C1CA27C5ED10007EEAD5 /* TabPicker.swift */; };
+		18B0C1CD27C6D357007EEAD5 /* utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B0C1CC27C6D356007EEAD5 /* utilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -97,6 +100,9 @@
 		18B0C1BC27C305FF007EEAD5 /* BarContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarContainer.swift; sourceTree = "<group>"; };
 		18B0C1BE27C30609007EEAD5 /* TreeContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeContainer.swift; sourceTree = "<group>"; };
 		18B0C1C327C3068F007EEAD5 /* NodesPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodesPicker.swift; sourceTree = "<group>"; };
+		18B0C1C827C5A631007EEAD5 /* globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = globals.swift; sourceTree = "<group>"; };
+		18B0C1CA27C5ED10007EEAD5 /* TabPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabPicker.swift; sourceTree = "<group>"; };
+		18B0C1CC27C6D356007EEAD5 /* utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = utilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,9 +139,11 @@
 			children = (
 				18B0C15A27C198F7007EEAD5 /* murlin_1_7App.swift */,
 				18B0C19227C1A0D7007EEAD5 /* database.swift */,
-				18B0C17427C19B3E007EEAD5 /* actions.swift */,
 				18B0C19827C1A816007EEAD5 /* environment.swift */,
+				18B0C17427C19B3E007EEAD5 /* actions.swift */,
 				18B0C19427C1A175007EEAD5 /* store.swift */,
+				18B0C1C827C5A631007EEAD5 /* globals.swift */,
+				18B0C1CC27C6D356007EEAD5 /* utilities.swift */,
 				18B0C18227C19D0D007EEAD5 /* types */,
 				18B0C17B27C19CB0007EEAD5 /* models */,
 				18B0C17327C19B0B007EEAD5 /* state */,
@@ -252,6 +260,7 @@
 			isa = PBXGroup;
 			children = (
 				18B0C1A827C23470007EEAD5 /* TagsPicker.swift */,
+				18B0C1CA27C5ED10007EEAD5 /* TabPicker.swift */,
 				18B0C1C327C3068F007EEAD5 /* NodesPicker.swift */,
 			);
 			path = pickers;
@@ -361,9 +370,12 @@
 				18B0C17D27C19CC9007EEAD5 /* StateTreeTypes.swift in Sources */,
 				18B0C19927C1A816007EEAD5 /* environment.swift in Sources */,
 				18B0C19727C1A21A007EEAD5 /* AppModel.swift in Sources */,
+				18B0C1CB27C5ED10007EEAD5 /* TabPicker.swift in Sources */,
 				18B0C1C427C3068F007EEAD5 /* NodesPicker.swift in Sources */,
 				18B0C17A27C19BA5007EEAD5 /* NodeModel.swift in Sources */,
 				18B0C1A527C20259007EEAD5 /* DatabaseTypes.swift in Sources */,
+				18B0C1CD27C6D357007EEAD5 /* utilities.swift in Sources */,
+				18B0C1C927C5A632007EEAD5 /* globals.swift in Sources */,
 				18B0C1BB27C305F6007EEAD5 /* ListContainer.swift in Sources */,
 				18B0C1A927C23470007EEAD5 /* TagsPicker.swift in Sources */,
 				18B0C17827C19B91007EEAD5 /* TagModel.swift in Sources */,

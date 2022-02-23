@@ -34,45 +34,74 @@ extension String {
 }
 
 
-final class Block: Object, ObjectKeyIdentifiable {
-    /// The unique ID of the Item. `primaryKey: true` declares the
-    /// _id member as the primary key to the realm.
-    @Persisted(primaryKey: true) var _id: ObjectId
- 
-    @Persisted var uuid: UUID = .init()
-    @Persisted var text: String = ""
-    @Persisted var subBlocks = RealmSwift.List<Block>()
-    @Persisted var markup = RealmSwift.Map<String,Style>()
-    
-    /*
-        https://augmentedcode.io/2021/06/21/exploring-attributedstring-and-custom-attributes/
-     */
-    var attributed: AttributedString {
-        var base = AttributedString(text)
-        var attributeBase = AttributeContainer()
-        for key in markup.keys {
-            if let range = key.toRange {
-                if let style = markup[key] {
+//final class Block: Object, ObjectKeyIdentifiable {
+//    /// The unique ID of the Item. `primaryKey: true` declares the
+//    /// _id member as the primary key to the realm.
+//    @Persisted(primaryKey: true) var _id: ObjectId
+// 
+//    @Persisted var uuid: UUID = .init()
+//    @Persisted var text: String = ""
+//    @Persisted var subBlocks = RealmSwift.List<Block>()
+//    @Persisted var markup: RealmSwift.Map<String,Style>? = nil
+//    
+//    /*
+//        https://augmentedcode.io/2021/06/21/exploring-attributedstring-and-custom-attributes/
+//     */
+//    var attributed: AttributedString {
+//        var base = AttributedString(text)
+//        var attributeBase = AttributeContainer()
+//        for key in markup.keys {
+//            if let range = key.toRange {
+//                if let style = markup[key] {
+//                    switch style.type {
+//                        case .shadow: break
+//                        case .link: break
+//                        case .textEffect: break
+//                        case .paragraphStyle: break
+//                        case .foregroundColor: break
+//                        case .textSize: break
+//                        case .backgroundColor: break
+//                        
+//                    }
+//                    //attributeBase[range]
+///*
+//                    base[range].backgroundColor
+//                    base[range].textEffect
+//                    base[range].foregroundColor
+//                    base[range].font
+//                    base[range].paragraphStyle
+//                    base[range].link
+//                    base[range].shadow
+//
+// */
+//                }
+//            }
+//        }
+//        return base
+//    }
+//}
+
 /*
-                    base[range].backgroundColor
-                    base[range].textEffect
-                    base[range].foregroundColor
-                    base[range].font
-                    base[range].paragraphStyle
-                    base[range].link
-                    base[range].shadow
-
+    put all default styles in here as optionals
+    ....?
  */
-                }
-            }
-        }
-        return base
-    }
-}
 
+
+enum StyleType: Int, PersistableEnum {
+    case textSize
+    // case font
+    case backgroundColor
+    case foregroundColor
+    case paragraphStyle
+    case textEffect
+    case link
+    case shadow
+}
 
 final class Style: EmbeddedObject {
  //   @Persisted var text:
-    @Persisted var size: Double = 16.0
+    @Persisted var type: StyleType
+
+    @Persisted var textSize: Double? = 16.0
     
 }

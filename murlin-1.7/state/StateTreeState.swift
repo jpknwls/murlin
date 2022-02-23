@@ -7,6 +7,7 @@
 
 import Foundation
 
-struct StateTree: Equatable {
-    var mode: Mode = .nodes(.idle(.idle))
+struct ModeTree: Equatable {
+    var tab: TabMode = .home(.idle)
+    var sheet: SheetMode = .idle
 }
